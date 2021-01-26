@@ -71,7 +71,7 @@ module Opendax
         vault_exec("vault policy write #{name} /tmp/policies/#{policy}.hcl")
 
         puts "Creating the #{name} token..."
-        vault_token_create_output = YAML.safe_load(vault_exec("vault token create -policy=#{name} -renewable=true -ttl=864000 -format=yaml"))
+        vault_token_create_output = YAML.safe_load(vault_exec("vault token create -policy=#{name} -renewable=true -ttl=240h -period=240h -format=yaml"))
         tokens["#{policy}_token"] = vault_token_create_output["auth"]["client_token"]
       end
 
