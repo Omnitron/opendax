@@ -15,15 +15,15 @@ services:
 
   cron_job:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb cron_job"
+    command: bash -c "bin/link_config && kaigara -name cron_job -exec bundle exec ruby lib/daemons/daemons.rb cron_job"
 
   deposit:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb deposit"
+    command: bash -c "bin/link_config && kaigara -name deposit -exec bundle exec ruby lib/daemons/daemons.rb deposit"
 
   upstream:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb upstream"
+    command: bash -c "bin/link_config && kaigara -name upstream -exec bundle exec ruby lib/daemons/daemons.rb upstream"
 
   deposit_coin_address:
     << : *peatio-daemon
@@ -31,11 +31,11 @@ services:
 
   withdraw_coin:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/amqp_daemon.rb withdraw_coin"
+    command: bash -c "bin/link_config && kaigara -name withdraw_coin -exec bundle exec ruby lib/daemons/amqp_daemon.rb withdraw_coin"
 
   influx_writer:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/amqp_daemon.rb influx_writer"
+    command: bash -c "bin/link_config && kaigara -name influx_writer -exec bundle exec ruby lib/daemons/amqp_daemon.rb influx_writer"
 
   rango:
     restart: always
@@ -50,11 +50,11 @@ services:
 
   order_processor:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/amqp_daemon.rb order_processor"
+    command: bash -c "bin/link_config && kaigara -name order_processor -exec bundle exec ruby lib/daemons/amqp_daemon.rb order_processor"
 
   trade_executor:
     << : *peatio-daemon
-    command: bash -c "bin/link_config && bundle exec ruby lib/daemons/amqp_daemon.rb trade_executor"
+    command: bash -c "bin/link_config && kaigara -name trade_executor -exec bundle exec ruby lib/daemons/amqp_daemon.rb trade_executor"
 <% end %>
 
   mailer:
